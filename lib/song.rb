@@ -43,14 +43,14 @@ class Song
   end
 
   def self.find_or_create_by_name(name)
-    find_by_name(name) || self.create(name)
+    find_by_name(name) || create(name)
   end
 
   def self.new_from_filename(file)
     song_data = file.split(" - ")
     self.find_or_create_by_name(song_data[1]).tap do |song|
       song.artist = Artist.find_or_create_by_name(song_data[0])
-      song.genre = Genre.find_or_create_by_name(song_data[2].sub(".mp3", ""))
+      song.genre = Genre.find_or_create_by_name(song_data[2].gsub(".mp3", ""))
     end
   end
 
